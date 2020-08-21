@@ -6,7 +6,7 @@ This repository consists of
 | License:     | [CC BY 4.0](LICENSE)   |
 |--------------|---|
 | Authors:     |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de) and [Sina Keller](mailto:sina.keller@kit.edu)|
-| Affiliation: | ci-Tec GmbH ([Link](www.ci-tec.de)) and Karlsruhe Institute of Technology ([Link](https://ipf.kit.edu))|
+| Affiliation: | [ci-Tec GmbH](www.ci-tec.de)) and Karlsruhe Institute of Technology, [Institute of Photogrammetry and Remote Sensing](https://ipf.kit.edu))|
 | Citation:    |  see  | 
 | Paper:       |  ToDo |
 | Requirements: | Python 3 with the packages  |
