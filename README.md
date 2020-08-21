@@ -2,12 +2,16 @@
 ToDo: Summary
 
 
-| License:     | `[CC BY 4.0](LICENSE)`   |
+| License:     | [CC BY 4.0](LICENSE)   |
 |--------------|---|
-| Authors:     |   |
-| Citation:    |   |
+| Authors:     |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de) and [Sina Keller](mailto:sina.keller@kit.edu)|
+| Citation:    |  see  | 
 | Paper        |   |
 | Requirements |   |
+
+
+
+[comment]: # (ToDo: Citation: Includ: [Citation](#citation) and [bibliography.bib](bibliography.bib))
 
 
 Description
