@@ -3,14 +3,13 @@ This repository consists of
 
 
 
-| License:     | [CC BY 4.0](LICENSE)   |
-|--------------|---|
-| Authors and affiliation:     |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de), [ci-Tec GmbH](www.ci-tec.de)|   
-:               : [Sina Keller](mailto:sina.keller@kit.edu), KarlsruheInstitute of Technology, [Institute of Photogrammetry and Remote Sensing](https://ipf.kit.edu) :
-| Citation:    |  see  | 
-| Paper:       |  ToDo |
-| Requirements: | Python 3 with the packages  |
-
+| License:                 | [CC BY 4.0](LICENSE)                                                      |
+|--------------------------|---------------------------------------------------------------------------|
+| Authors and affiliation: |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de), [ci-Tec GmbH](www.ci-tec.de)|   
+|                          |  [Sina Keller](mailto:sina.keller@kit.edu), KarlsruheInstitute of Technology, [Institute of Photogrammetry and Remote Sensing](https://ipf.kit.edu) 
+| Citation:                |  see                                                                      | 
+| Paper:                   |  ToDo                                                                     |
+| Requirements:            | Python 3 with the packages                                                |
 
 
  #(ToDo: Citation: Include: [Citation](#citation) and [bibliography.bib](bibliography.bib) Inlcude .bib file with both references)
