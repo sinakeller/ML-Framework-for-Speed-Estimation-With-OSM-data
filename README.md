@@ -1,18 +1,30 @@
 # ML-Framework-for-Speed_Estimation-With-OSM-data
 ToDo: Summary
 
-**License:** [CC BY 4.0](LICENSE)
 
-**Authors:**
+Description
+-----------
 
-- [Raoul Gabriel](mailto:r.gabrielb@ci-tec.de)
-- [Sina Keller](mailto:sina.keller@kit.edu)
 
-**Affiliation:** Karlsruhe Institute of Technology, Institute of Photogrammetry and Remote Sensing ([Link](https://ipf.kit.edu))
 
-**Citation:** see ToDo and ToDo Bib-File.
+:License:
+    `[CC BY 4.0](LICENSE)`_
 
-**Example script:** [
+:Authors:
+    `Raoul Gabriel <mailto:r.gabriel@ci-tec.de>`_, `Sina Keller <mailto:sina.keller@kit.edu>`_
+
+:Affiliation:
+    `ci-Tec GmbH`, `Karlsruhe Institute of Technology, Institute of Photogrammetry and Remote Sensing ([Link](https://ipf.kit.edu))`
+
+:Citation:
+    see TODO_
+
+:Paper:
+    `ToDO`_
+
+:Requirements:
+    Python 3 with these `packages TODO`_
+
 
 
 ## Description
