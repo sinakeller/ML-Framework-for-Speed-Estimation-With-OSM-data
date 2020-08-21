@@ -26,10 +26,6 @@ Include Required packages as .txt file)
 
 ToDo
 
-## Variables
-
-- **class_id:** Todo... 
-
 
 ## Citation
 
