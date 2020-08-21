@@ -1,5 +1,9 @@
 # ML-Framework-for-Speed-Estimation-With-OSM-data
-This repository consists of 
+This repository consists of a machine learning framework which can be applied to estimate the average speed of road segments based on OpenStreetMap road network data. The detailed description of the methodology is given in ToDo. 
+
+<!---
+ToDos: Improve intro text and update citation.
+--->
 
 
 
