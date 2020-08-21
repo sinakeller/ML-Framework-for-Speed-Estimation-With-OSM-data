@@ -8,12 +8,12 @@ ToDos: Improve intro text and update citation.
 
 |     |     |
 |--------------------------|-----------|
-| License:                 | [CC BY 4.0](LICENSE)|
-| Authors and affiliation: |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de), [ci-Tec GmbH](https://www.ci-tec.de)|   
+| **License:**                 | [CC BY 4.0](LICENSE)|
+| **Authors and affiliation:** |  [Raoul Gabriel](mailto:r.gabriel@ci-tec.de), [ci-Tec GmbH](https://www.ci-tec.de)|   
 |                          |  [Sina Keller](mailto:sina.keller@kit.edu), Karlsruhe Institute of Technology, [Institute of Photogrammetry and Remote Sensing](https://ipf.kit.edu) 
-| Citation:                |  see                                                                      | 
-| Paper:                   |  ToDo                                                                     |
-| Requirements:            | Python 3 with the packages                                                |
+| **Citation:**                |  see                                                                      | 
+| **Paper:**                   |  ToDo                                                                     |
+| **Requirements:**            | Python 3 with the packages                                                |
 
 <!---
 ToDos
