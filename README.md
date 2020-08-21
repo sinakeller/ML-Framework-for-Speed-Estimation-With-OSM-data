@@ -2,6 +2,14 @@
 ToDo: Summary
 
 
+| License:     | `[CC BY 4.0](LICENSE)`   |
+|--------------|---|
+| Authors:     |   |
+| Citation:    |   |
+| Paper        |   |
+| Requirements |   |
+
+
 Description
 -----------
 
