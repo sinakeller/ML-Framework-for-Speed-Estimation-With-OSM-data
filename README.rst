@@ -3,6 +3,8 @@ ML-Framework-for-Speed-Estimation-With-OSM-data
 
 This repository consists of a machine learning framework which can be applied to estimate the average speed of road segments based on OpenStreetMap road network data. The detailed description of the methodology is given in ToDo. 
 
+Note that due to Copyright reasons, the used target features are not the real velocities, but surogates generated with the `Fuzzy-Framework <https://github.com/johannaguth/Fuzzy-Framework-for-Speed-Estimation#fuzzy-framework-for-speed-estimation>`_.
+
 .. ToDos: Improve intro text and update citation.
 
 
