@@ -42,7 +42,6 @@ The bibtex file will be available as soon as the paper will be published.
 **Code:**
 
 Raoul Gabriel and Sina Keller, "Machine Learning Framework for Speed Estimation of Roads With OpenStreetMap Data", Zenodo, `10.5281/zenodo.4012277 <http://doi.org/10.5281/zenodo.4012277>`_, 2020.
-2019.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4012277.svg
     :target:  https://doi.org/10.5281/zenodo.4012277
