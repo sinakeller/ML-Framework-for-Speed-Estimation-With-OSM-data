@@ -43,10 +43,8 @@ The bibtex file will be available as soon as the paper will be published.
 
 Raoul Gabriel and Sina Keller, ...., Zenodo
 
-.. ToDo Anpassen auf unsere DOI etc
-
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.3450676.svg
-    :target: https://doi.org/10.5281/zenodo.3450676
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4012277.svg
+    :target:  https://doi.org/10.5281/zenodo.4012277
     :alt: DOI
 
 .. code:: bibtex
