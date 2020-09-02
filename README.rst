@@ -41,7 +41,8 @@ The bibtex file will be available as soon as the paper will be published.
 
 **Code:**
 
-Raoul Gabriel and Sina Keller, ...., Zenodo
+Raoul Gabriel and Sina Keller, "Machine Learning Framework for Speed Estimation of Roads With OpenStreetMap Data", Zenodo, `10.5281/zenodo.4012277 <http://doi.org/10.5281/zenodo.4012277>`_, 2020.
+2019.
 
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4012277.svg
     :target:  https://doi.org/10.5281/zenodo.4012277
@@ -49,7 +50,14 @@ Raoul Gabriel and Sina Keller, ...., Zenodo
 
 .. code:: bibtex
 
-    @misc{ToDo
+    @misc{gabriel_keller2020speed_estimation,
+        author = {Gabriel, Raoul and Keller, Sina},
+        title = {{Machine Learning Framework for Speed Estimation of Roads With OpenStreetMap Data}},
+        year = {2020},
+        DOI = {10.5281/zenodo.4012277},
+        publisher = {Zenodo},
+        howpublished = {\href{https://doi.org/10.5281/zenodo.4012277}{doi.org/10.5281/zenodo.4012277}}
     }
+
 
 
