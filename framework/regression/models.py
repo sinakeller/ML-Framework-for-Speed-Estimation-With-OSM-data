@@ -134,13 +134,13 @@ def add_pca(num_cluster):
         framework.global_data._X_test_scaled)
 
 
-def train_models(results, n_esti=200, generate_som_clusters=False, som_only=False, generate_pca=False, pca_components=None, save=False):
+def train_models(results, n_esti=200, generate_som_clusters=False, som_only=False, generate_pca=False, pca_components=None, save=True):
     from sklearn.ensemble import RandomForestRegressor, BaggingRegressor, ExtraTreesRegressor, AdaBoostRegressor, GradientBoostingRegressor, VotingRegressor
     from sklearn.linear_model import LinearRegression, Ridge
     from sklearn.svm import SVR
     import susi
-    import datetime
     import numpy as np
+    print("Start training of Models...")
 
     num_cluster = len(framework.global_data._X['class_id'].value_counts())
 
@@ -151,7 +151,6 @@ def train_models(results, n_esti=200, generate_som_clusters=False, som_only=Fals
             print("Using only SOM clusters")
             som_cols = ['som_row_clustered', 'som_column_clustered',
                         'som_bmu_row', 'som_bmu_column']
-            #som_cols = ['som_bmu_row','som_bmu_column']
             framework.global_data._X_train_scaled = framework.global_data._X_train_scaled.filter(
                 som_cols, axis=1)
             framework.global_data._X_test_scaled = framework.global_data._X_test_scaled.filter(
@@ -160,14 +159,13 @@ def train_models(results, n_esti=200, generate_som_clusters=False, som_only=Fals
         print("Generate {} PCA components".format(pca_components))
         add_pca(pca_components)
 
-    # TODO read models from file
     som = susi.SOMRegressor(
         # n_jobs=4,
         n_rows=40,
         n_columns=40,
         learning_rate_start=0.001,
-        n_iter_unsupervised=1000000,
-        n_iter_supervised=1000000
+        n_iter_unsupervised=100000,
+        n_iter_supervised=100000
     )
     lr = LinearRegression()
     ab = AdaBoostRegressor(n_estimators=n_esti)
@@ -190,10 +188,10 @@ def train_models(results, n_esti=200, generate_som_clusters=False, som_only=Fals
     ]
 
     for (name, model) in models:
+        print("# Training: {}".format(name))
         model = train(framework.global_data._X_train_scaled,
                       framework.global_data._y_train, model)
         if save:
-            # filename = 'framework/models/'+datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')+'_'+name+'.joblib'
             filename = 'framework/models/'+name+'.joblib'
             dump(model, filename)
 
@@ -232,147 +230,4 @@ def test_models(results, savepred=False):
                 df.to_csv(path+'/'+name+'.csv')
             results = results.append({'Method': name, 'Prediction Time': stats['prediction time'],
                                       'prediction RMSE': stats['prediction RMSE'], 'prediction R2': stats['prediction R2'], 'feature importance': stats['feature importance'], 'scores': stats['scores']}, ignore_index=True)
-    return results
-
-
-def test_models_vr(results, n_esti=200, pref="", suff=""):
-    import ml_helper
-    from sklearn.ensemble import RandomForestRegressor, BaggingRegressor, ExtraTreesRegressor, AdaBoostRegressor, GradientBoostingRegressor, VotingRegressor
-    from sklearn.linear_model import LinearRegression, Ridge
-    from sklearn.svm import SVR
-    import susi
-
-    som = susi.SOMRegressor(
-        # n_jobs=4,
-        n_rows=40,
-        n_columns=40,
-        learning_rate_start=0.001,
-        n_iter_unsupervised=1000000,
-        n_iter_supervised=1000000
-    )
-    lr = LinearRegression()
-    ab = AdaBoostRegressor(n_estimators=n_esti)
-    et = ExtraTreesRegressor(n_estimators=n_esti, n_jobs=-1)
-    br = BaggingRegressor(n_estimators=n_esti)
-    gb = GradientBoostingRegressor(n_estimators=n_esti)
-    rf = RandomForestRegressor(n_estimators=n_esti, n_jobs=-1)
-    ridge = Ridge(alpha=1.0)
-    svr = SVR(kernel='rbf', gamma='scale')
-
-    vr = VotingRegressor([
-        ('som', som),
-        ('lr', lr),
-        ('ab', ab),
-        ('et', et),
-        ('br', br),
-        ('gb', gb),
-        ('rf', rf),
-        ('ridge', ridge),
-        ('svr', svr)
-    ])
-    stats = ml_helper.train(
-        framework.global_data._X_train_scaled, framework.global_data._y_train, vr)
-    y_pred = ml_helper.predict(
-        framework.global_data._X_test_scaled, framework.global_data._y_test, vr, stats)
-    results = results.append({'Method': pref+'voting_regressor_'+suff, 'Training Time': stats['training time'], 'Prediction Time': stats['prediction time'],
-                              'prediction RMSE': stats['prediction RMSE'], 'prediction R2': stats['prediction R2'], 'feature importance': stats['feature importance'], 'scores': stats['scores']}, ignore_index=True)
-
-    return results
-
-
-def test_models_cv(results, n_esti=200, num_cv=3, pref="", suff=""):
-    import numpy as np
-    import ml_helper
-    from sklearn.ensemble import RandomForestRegressor, BaggingRegressor, ExtraTreesRegressor, AdaBoostRegressor, GradientBoostingRegressor
-    from sklearn.linear_model import LinearRegression, Ridge
-    from sklearn.svm import SVR
-    import susi
-    from sklearn.model_selection import cross_validate
-
-    scoring_parameter = ('explained_variance', 'max_error', 'neg_mean_absolute_error', 'neg_mean_squared_error', 'neg_root_mean_squared_error',
-                         'neg_median_absolute_error', 'r2')
-
-    name = 'susi.SOMRegressor'
-    model = susi.SOMRegressor(
-        # n_jobs=4,
-        n_rows=40,
-        n_columns=40,
-        learning_rate_start=0.001,
-        n_iter_unsupervised=1000000,
-        n_iter_supervised=1000000
-    )
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'LinearRegression'
-    model = LinearRegression()
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'AdaBoostRegressor'
-    model = AdaBoostRegressor(n_estimators=n_esti)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'ExtraTreesRegressor'
-    model = ExtraTreesRegressor(n_estimators=n_esti, n_jobs=-1)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'BaggingRegressor'
-    model = BaggingRegressor(n_estimators=n_esti)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'GradientBoostingRegressor'
-    model = GradientBoostingRegressor(n_estimators=n_esti)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'RandomForestRegressor'
-    model = RandomForestRegressor(n_estimators=n_esti, n_jobs=-1)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'Ridge'
-    model = Ridge(alpha=1.0)
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    name = 'SVR_rbf'
-    model = SVR(kernel='rbf', gamma='scale')
-    scores = cross_validate(model, framework.global_data._X_scaled,
-                            framework.global_data._y, scoring=scoring_parameter, cv=num_cv)
-    results = results.append({'Method': str(num_cv)+'xCV_'+pref+name+'_'+suff, 'Training Time': scores['fit_time'].mean(), 'Score Time': scores['score_time'].mean(),
-                              'prediction RMSE': np.sqrt(abs(scores['test_neg_mean_squared_error'])).mean(), 'prediction R2': scores['test_r2'].mean(), 'scores': scores}, ignore_index=True)
-
-    return results
-
-
-def test_test_models(results, n_esti=200, pref="", suff=""):
-    from sklearn.ensemble import RandomForestRegressor
-    model = RandomForestRegressor(n_estimators=n_esti, n_jobs=-1)
-    stats = train(framework.global_data._X_train_scaled,
-                  framework.global_data._y_train, model)
-    y_pred = predict(framework.global_data._X_test_scaled,
-                     framework.global_data._y_test, model, stats)
-    results = results.append({'Method': pref+'RandomForestRegressor_'+suff, 'Training Time': stats['training time'], 'Prediction Time': stats['prediction time'],
-                              'prediction RMSE': stats['prediction RMSE'], 'prediction R2': stats['prediction R2'], 'feature importance': stats['feature importance'], 'scores': stats['scores']}, ignore_index=True)
-
     return results

@@ -9,7 +9,6 @@ import framework.global_data
 def load_data(path, feature_columns, target_column, imputer=None, drop_nan=True):
     print("Load Data...")
     ds = pd.read_pickle(path)
-    #ds = ds[ds["length"] >= 600]
     col = feature_columns
     col.append(target_column)
     ds = ds[col]

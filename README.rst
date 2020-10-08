@@ -1,9 +1,11 @@
 ML-Framework-for-Speed-Estimation-With-OSM-data
 ===============================================
 
-This repository consists of a machine learning framework which can be applied to estimate the average speed of road segments in rural regions based on OpenStreetMap road network data. The detailed description of the methodology is given in the journal paper "Machine Learning Framework for the Estimation of Average Speed in Road Networks with OpenStreetMap Data" which is currently in review. 
+This repository consists of a machine learning framework that can be applied to estimate the average speed of road segments in rural regions based on OpenStreetMap road network data. The detailed description of the methodology is given in the journal paper "Machine Learning Framework for the Estimation of Average Speed in Road Networks with OpenStreetMap Data", which is currently in review.
+ 
+The repository further contains two example applications of the framework, each in a separate jupyter notebook. The `nnsw_example.ipynb <nnsw_example.ipynb>`_ notebook shows the application of the framework on the NNSW ( Australia) dataset without additionally generated features. The `bm_example.ipynb <bm_example.ipynb>`_ offers the application to the biomaule dataset with the additional use of the SOM-generated features.
 
-Note that the applied target values in this repository differ from the true average speed values due to copyright reasons. The reference values in this repository are generated with the `Fuzzy-Framework <https://github.com/johannaguth/Fuzzy-Framework-for-Speed-Estimation#fuzzy-framework-for-speed-estimation>`_.
+**Note that this repository's applied target values differ from the actual average speed values due to copyright reasons.** The reference values in this repository are generated with the `Fuzzy-Framework <https://github.com/johannaguth/Fuzzy-Framework-for-Speed-Estimation#fuzzy-framework-for-speed-estimation>`_ and are therefore much more comfortable to predict.
 
 .. ToDos: Include citation, update text.
 
@@ -26,7 +28,7 @@ Description
     In review.
 
 :Requirements:
-    Python 3 
+    Python 3 with these `packages <requirements.txt>`_
 
 
 
@@ -57,6 +59,3 @@ Raoul Gabriel and Sina Keller, "Machine Learning Framework for Speed Estimation 
         publisher = {Zenodo},
         howpublished = {\href{https://doi.org/10.5281/zenodo.4012277}{doi.org/10.5281/zenodo.4012277}}
     }
-
-
-
