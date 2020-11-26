@@ -26,7 +26,7 @@ Description
     see `Citation`_
 
 :Paper:
-    In review.
+    `Machine Learning Framework for the Estimation of Average Speed in Road Networks with OpenStreetMap Data <https://www.mdpi.com/2220-9964/9/11/638>`_
 
 :Requirements:
     Python 3 with these `packages <requirements.txt>`_
